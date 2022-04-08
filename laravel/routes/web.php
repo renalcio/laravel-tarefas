@@ -29,3 +29,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+//Tarefas
+Route::resource('tarefas', \App\Http\Controllers\TarefaController::class);
