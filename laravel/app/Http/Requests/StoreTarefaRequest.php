@@ -13,7 +13,7 @@ class StoreTarefaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check();
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreTarefaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'titulo' => 'required',
+            'descricao' => 'required'
         ];
     }
 }

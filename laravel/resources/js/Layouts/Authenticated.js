@@ -24,6 +24,12 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     Dashboard
                                 </NavLink>
+                                <NavLink href={route('tarefas.index')} active={route().current('tarefas.index')}>
+                                    Tarefas
+                                </NavLink>
+                                <NavLink href={route('tarefas.create')} active={route().current('tarefas.create')}>
+                                    Nova Tarefa
+                                </NavLink>
                             </div>
                         </div>
 
@@ -56,7 +62,7 @@ export default function Authenticated({ auth, header, children }) {
 
                                     <Dropdown.Content>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
+                                            Sair
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -94,6 +100,13 @@ export default function Authenticated({ auth, header, children }) {
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             Dashboard
                         </ResponsiveNavLink>
+
+                        <ResponsiveNavLink href={route('tarefas.index')} active={route().current('tarefas.index')}>
+                            Tarefas
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('tarefas.create')} active={route().current('tarefas.create')}>
+                            Nova Tarefa
+                        </ResponsiveNavLink>
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
@@ -104,7 +117,7 @@ export default function Authenticated({ auth, header, children }) {
 
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
+                                Sair
                             </ResponsiveNavLink>
                         </div>
                     </div>

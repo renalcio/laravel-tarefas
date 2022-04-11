@@ -13,7 +13,7 @@ class UpdateTarefaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check() && $this->user_id = auth()->user()->id;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateTarefaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'titulo' => 'required',
+            'descricao' => 'required'
         ];
     }
 }

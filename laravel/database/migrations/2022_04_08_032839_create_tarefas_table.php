@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('titulo');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->nullable()->default(0);
             $table->longText('descricao');
             $table->timestamps();
         });

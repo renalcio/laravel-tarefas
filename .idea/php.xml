@@ -114,6 +114,13 @@
       <path value="$PROJECT_DIR$/laravel/vendor/laravel/breeze" />
       <path value="$PROJECT_DIR$/laravel/vendor/tightenco/ziggy" />
       <path value="$PROJECT_DIR$/laravel/vendor/inertiajs/inertia-laravel" />
+      <path value="$PROJECT_DIR$/laravel/vendor/barryvdh/reflection-docblock" />
+      <path value="$PROJECT_DIR$/laravel/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/laravel/vendor/barryvdh/laravel-ide-helper" />
+      <path value="$PROJECT_DIR$/laravel/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/laravel/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/laravel/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/laravel/vendor/doctrine/deprecations" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />
