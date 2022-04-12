@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 
-const Table = ({className,children}) => {
+const Table = ({className = '',children}) => {
 
     return (
             <>
@@ -13,7 +13,7 @@ const Table = ({className,children}) => {
     );
 };
 
-const TableHead = ({className,trClassName,children}) => {
+const TableHead = ({className = '',trClassName,children}) => {
     return (
         <>
             <thead className={className}>
@@ -22,7 +22,7 @@ const TableHead = ({className,trClassName,children}) => {
         </>
     );
 };
-const TableHeadItem = ({className,children}) => {
+const TableHeadItem = ({className = '',children}) => {
     return (
         <>
             <th className={`px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider ` + className}>{children}</th>
@@ -30,7 +30,7 @@ const TableHeadItem = ({className,children}) => {
     );
 };
 
-const TableBody = ({className,children}) => {
+const TableBody = ({className = '',children}) => {
     return (
         <>
             <tbody className={`bg-white ` + className}>{children}</tbody>
@@ -38,7 +38,7 @@ const TableBody = ({className,children}) => {
     );
 };
 
-const TableRow = ({className,children}) => {
+const TableRow = ({className = '',children}) => {
     return (
         <>
             <tr className={className}>{children}</tr>
@@ -46,10 +46,10 @@ const TableRow = ({className,children}) => {
     );
 };
 
-const TableCell = ({className,children}) => {
+const TableCell = ({className = '',children}) => {
     return (
         <>
-            <td className={`px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5 ` + className}>{children}</td>
+            <td className={`px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-blue-900 text-sm leading-5 ` + className}>{children}</td>
         </>
     );
 };

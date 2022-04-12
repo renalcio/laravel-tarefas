@@ -32,4 +32,9 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 //Tarefas
-Route::resource('tarefas', \App\Http\Controllers\TarefaController::class);
+Route::resource('tarefas', \App\Http\Controllers\TarefaController::class)->middleware(['auth', 'verified'])->missing(function (Request $request) {
+    return Redirect::route('tarefas.index');
+});
+Route::resource('tarefa_comentarios', \App\Http\Controllers\TarefaComentarioController::class)->middleware(['auth', 'verified'])->missing(function (Request $request) {
+    return Redirect::route('tarefa_comentarios.index');
+});

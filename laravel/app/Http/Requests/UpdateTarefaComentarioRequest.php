@@ -13,7 +13,7 @@ class UpdateTarefaComentarioRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->check() && ($this->user_id === auth()->user()->id || $this->isMethod('PATCH'));
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateTarefaComentarioRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'conteudo' => ['required']
         ];
     }
 }

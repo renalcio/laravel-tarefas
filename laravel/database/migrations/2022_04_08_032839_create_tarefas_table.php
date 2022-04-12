@@ -16,9 +16,13 @@ return new class extends Migration
         Schema::create('tarefas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_start_id')->nullable()->constrained('users');
+            $table->foreignId('user_finish_id')->nullable()->constrained('users');
             $table->string('titulo');
             $table->tinyInteger('status')->nullable()->default(0);
             $table->longText('descricao');
+            $table->dateTime('inicio')->nullable();
+            $table->dateTime('fim')->nullable();
             $table->timestamps();
         });
     }

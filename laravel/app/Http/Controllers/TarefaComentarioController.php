@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTarefaComentarioRequest;
 use App\Http\Requests\UpdateTarefaComentarioRequest;
 use App\Models\TarefaComentario;
+use Illuminate\Support\Facades\Redirect;
 
 class TarefaComentarioController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -20,8 +19,6 @@ class TarefaComentarioController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -30,20 +27,19 @@ class TarefaComentarioController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTarefaComentarioRequest  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(StoreTarefaComentarioRequest $request)
     {
-        //
+        //Criar model
+        $comentario = new TarefaComentario();
+        $comentario->fill($request->all());
+        $comentario->save();
+
+        return Redirect::route('tarefas.show', $comentario->tarefa_id);
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\TarefaComentario  $tarefaComentario
-     * @return \Illuminate\Http\Response
      */
     public function show(TarefaComentario $tarefaComentario)
     {
@@ -52,9 +48,6 @@ class TarefaComentarioController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TarefaComentario  $tarefaComentario
-     * @return \Illuminate\Http\Response
      */
     public function edit(TarefaComentario $tarefaComentario)
     {
@@ -63,24 +56,25 @@ class TarefaComentarioController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTarefaComentarioRequest  $request
-     * @param  \App\Models\TarefaComentario  $tarefaComentario
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateTarefaComentarioRequest $request, TarefaComentario $tarefaComentario)
     {
-        //
+
+        $tarefaComentario->fill($request->all())->save();
+
+        return Redirect::route('tarefas.show', $tarefaComentario->tarefa_id);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TarefaComentario  $tarefaComentario
-     * @return \Illuminate\Http\Response
      */
     public function destroy(TarefaComentario $tarefaComentario)
     {
-        //
+
+        $tarefaId = $tarefaComentario->tarefa_id;
+
+        $tarefaComentario->delete();
+
+        return Redirect::route('tarefas.show', $tarefaId);
     }
 }

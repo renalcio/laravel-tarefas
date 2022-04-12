@@ -10,18 +10,38 @@
  */
 
 
+namespace App\Models\ModelBases{
+/**
+ * App\Models\ModelBases\EloquentModelBase
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|EloquentModelBase newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EloquentModelBase newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|EloquentModelBase query()
+ */
+	class EloquentModelBase extends \Eloquent {}
+}
+
 namespace App\Models{
 /**
  * App\Models\Tarefa
  *
  * @property int $id
  * @property int $user_id
+ * @property int|null $user_start_id
+ * @property int|null $user_finish_id
  * @property string $titulo
- * @property int $status
+ * @property int|null $status
  * @property string $descricao
+ * @property \Illuminate\Support\Carbon|null $inicio
+ * @property \Illuminate\Support\Carbon|null $fim
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TarefaComentario[] $comentarios
+ * @property-read int|null $comentarios_count
+ * @property-read mixed $user_executando
  * @property-read \App\Models\User $user
+ * @property-read \App\Models\User|null $user_finish
+ * @property-read \App\Models\User|null $user_start
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
  * @method static \Database\Factories\TarefaFactory factory(...$parameters)
@@ -30,11 +50,15 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Tarefa query()
  * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereDescricao($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereFim($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereInicio($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereTitulo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereUserFinishId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Tarefa whereUserStartId($value)
  */
 	class Tarefa extends \Eloquent {}
 }
@@ -44,16 +68,20 @@ namespace App\Models{
  * App\Models\TarefaComentario
  *
  * @property int $id
+ * @property int $tarefa_id
  * @property int $user_id
  * @property string $conteudo
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Tarefa $tarefa
+ * @property-read \App\Models\User|null $user
  * @method static \Illuminate\Database\Eloquent\Builder|TarefaComentario newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TarefaComentario newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TarefaComentario query()
  * @method static \Illuminate\Database\Eloquent\Builder|TarefaComentario whereConteudo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TarefaComentario whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TarefaComentario whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|TarefaComentario whereTarefaId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TarefaComentario whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TarefaComentario whereUserId($value)
  */
@@ -103,17 +131,13 @@ namespace App\Models{
  * @property int $id
  * @property int $user_id
  * @property int $tarefa_id
- * @property int $executando
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $executando
  * @method static \Illuminate\Database\Eloquent\Builder|UserTarefa newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserTarefa newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserTarefa query()
- * @method static \Illuminate\Database\Eloquent\Builder|UserTarefa whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserTarefa whereExecutando($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserTarefa whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserTarefa whereTarefaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|UserTarefa whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserTarefa whereUserId($value)
  */
 	class UserTarefa extends \Eloquent {}

@@ -12,12 +12,6 @@ export default function Textarea({
                                  }) {
     const input = useRef();
 
-    useEffect(() => {
-        if (isFocused) {
-            input.current.focus();
-        }
-    }, []);
-
     return (
         <div className="flex flex-col items-start">
             <textarea

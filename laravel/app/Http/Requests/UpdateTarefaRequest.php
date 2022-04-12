@@ -13,7 +13,7 @@ class UpdateTarefaRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check() && $this->user_id = auth()->user()->id;
+        return auth()->check() && ($this->user_id === auth()->user()->id || $this->isMethod('PATCH'));
     }
 
     /**
@@ -23,9 +23,9 @@ class UpdateTarefaRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        return $this->isMethod('PUT') ? [
             'titulo' => 'required',
             'descricao' => 'required'
-        ];
+        ] : [];
     }
 }

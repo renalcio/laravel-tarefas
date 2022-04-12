@@ -16,8 +16,11 @@ class IdeHelper extends Command
 
     public function handle()
     {
+        dump('Generate');
         Artisan::call('ide-helper:generate');
+        dump('Models');
         Artisan::call('ide-helper:models -N',);
+        dump('Meta');
         Artisan::call('ide-helper:meta');
     }
 }

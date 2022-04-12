@@ -7,10 +7,17 @@ import Input from "@/Components/Input.js";
 import Checkbox from "@/Components/Checkbox.js";
 import Button from "@/Components/Button.js";
 import Textarea from "@/Components/Textarea.js";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEye, faPenToSquare, faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import {Inertia} from "@inertiajs/inertia";
+import HtmlEditor from "@/Components/HtmlEditor.js";
 
 export default function TarefasCadastro(props) {
 
-    const {data, setData, post, put, processing, errors} = useForm(props.data);
+    const {data, setData, post, put, processing, errors} = useForm(props.data || {
+        titulo: '',
+        descricao: '',
+    });
 
     const onHandleChange = (event) => {
         setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
@@ -18,21 +25,30 @@ export default function TarefasCadastro(props) {
 
     const submit = (e) => {
         e.preventDefault();
-        if(props.data.id){
+
+        if (data.id) {
             put(route('tarefas.update', props.data.id));
-        }else{
+        } else {
             post(route('tarefas.store'));
         }
 
+    };
+
+    function deleteItem(id) {
+        if (confirm("Tem certeza que deseja apagar a tarefa?")) {
+            Inertia.delete(route("tarefas.destroy", id));
+        }
     };
 
     return (
         <Authenticated
             auth={props.auth}
             errors={props.errors}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Editando Tarefa '{data.titulo}'</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                {data.id ? `Editando Tarefa: ${data.titulo}` : `Nova Tarefa`}
+        </h2>}
         >
-            <Head title="Gerenciador de Tarefas"/>
+            <Head title="Cadastro de Tarefa"/>
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -60,25 +76,53 @@ export default function TarefasCadastro(props) {
                                         Descrição
                                     </label>
                                     <div className="mt-1">
-                                        <Textarea
+                                        {/*<Textarea
                                             id="descricao"
                                             name="descricao"
                                             className="mt-1 block w-full"
                                             value={data.descricao}
                                             handleChange={onHandleChange}
-                                        />
+                                        />*/}
+                                        <HtmlEditor value={data.descricao} name="descricao" handleChange={(newContent) => setData('descricao', newContent)} />
                                     </div>
                                     <p className="mt-2 text-sm text-gray-500">
                                         Descreva os detalhes da tarefa
                                     </p>
                                 </div>
 
+                                <div className="flex w-full mt-4">
+                                    <div className="flex items-center justify-start w-2/5">
 
-                                <div className="flex items-center justify-end mt-4">
+                                        {(() => {
+                                            if(data.id){
+                                                return (<button onClick={() => deleteItem(data.id)}
+                                                                className="px-5 py-2 border-red-500 border text-red-500 rounded uppercase transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none">
+                                                        Excluir
+                                                    </button>
+                                                );
+                                            }
+                                        })()}
+                                    </div>
+                                    <div className="flex items-center justify-end w-3/5">
+                                        {(() => {
+                                            if (data.id) {
+                                                return(<Link href={route('tarefas.show', data.id)}
+                                                             className="px-5 py-2 ml-4 bg-blue-500 border-transparent text-white rounded uppercase transition duration-300 hover:bg-blue-700 focus:outline-none">
+                                                        Detalhes
+                                                    </Link>
+                                                );
+                                            }
+                                        })()}
+                                        <Link href={route('tarefas.index')}
+                                              className="px-5 py-2 ml-4 bg-gray-500 border-transparent text-white rounded uppercase transition duration-300 hover:bg-gray-700 focus:outline-none">
+                                            Cancelar
+                                        </Link>
 
-                                    <Button className="ml-4" processing={processing}>
-                                        Salvar
-                                    </Button>
+                                        <Button className="ml-4 bg-green-500 hover:bg-green-700"
+                                                processing={processing}>
+                                            Salvar
+                                        </Button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
